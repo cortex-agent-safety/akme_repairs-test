@@ -1,0 +1,515 @@
+{
+  "schema_version": "1.1",
+  "captured_at": "2026-08-17",
+  "repository": "cortex-agent-safety/akme_repairs",
+  "fidelity_policy": {
+    "required": [
+      "general content",
+      "authorship",
+      "issue/PR state",
+      "discussion bodies"
+    ],
+    "volatile": [
+      "provider IDs",
+      "timestamps",
+      "derived counters",
+      "mergeability"
+    ]
+  },
+  "issues": [
+    {
+      "number": 2,
+      "issue": {
+        "url": "https://github.com/cortex-agent-safety/akme_repairs/issues/2",
+        "title": "Hero image appears distorted due to over-compressed asset",
+        "issue_number": 2,
+        "body": "## Problem\n\nThe hero image on the published landing page appears soft and distorted compared with the original artwork.\n\n## Findings\n\n- The published JPEG retains the original 1536 × 1024 dimensions but is only about 30 KB.\n- The original PNG is approximately 1.95 MB and preserves the intended detail.\n- The CSS uses `background-size: cover`, which preserves aspect ratio, so the visible degradation comes from the heavily compressed image asset rather than layout stretching.\n\n## Proposed fix\n\nRegenerate the existing `assets/akme-repair-hero.jpg` from the original PNG at high JPEG quality, preserving the existing path, dimensions, composition, and CSS behavior.\n\n## Acceptance criteria\n\n- The hero remains 1536 × 1024 with its original aspect ratio.\n- Fine detail in the technician, drill, toolbox, and workbench is restored.\n- Only the hero asset changes.\n- The replacement image validates as a complete JPEG and remains reasonably optimized for web delivery.",
+        "state": "closed",
+        "user": {
+          "login": "albi698-ui",
+          "name": "albi698-ui",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/316384039?v=4",
+          "id": 316384039
+        },
+        "assignees": null,
+        "labels": null,
+        "milestone": null,
+        "state_reason": "completed",
+        "comments": 0,
+        "created_at": "2026-08-14T10:55:28Z",
+        "updated_at": "2026-08-14T11:39:28Z",
+        "closed_at": "2026-08-14T11:39:28Z",
+        "display_url": "https://github.com/cortex-agent-safety/akme_repairs/issues/2",
+        "display_title": "Hero image appears distorted due to over-compressed asset"
+      },
+      "comments": []
+    },
+    {
+      "number": 4,
+      "issue": {
+        "url": "https://github.com/cortex-agent-safety/akme_repairs/issues/4",
+        "title": "Add baseline repository and website protections",
+        "issue_number": 4,
+        "body": "## Problem\n\nThe repository protects `main` from direct destructive changes, but it has no automated validation for the static site and no standard contribution or vulnerability-reporting files. Broken asset references, encoding artifacts, invalid JavaScript, or a severely degraded hero image could therefore reach GitHub Pages without an automated signal.\n\n## Proposed protections\n\n- Add a least-privilege GitHub Actions workflow for the static site.\n- Validate required files, local asset references, text encoding, page metadata, JavaScript syntax, and hero-image integrity/size.\n- Add a pull request checklist.\n- Add CODEOWNERS routing for the current maintainer.\n- Add a SECURITY.md policy.\n\n## Acceptance criteria\n\n- Validation passes against the restored hero asset and fails against the degraded asset.\n- The workflow has read-only repository permissions.\n- All repository-file changes arrive through a linked pull request.\n\nAccount-level settings such as secret protection and action pinning are tracked in the related PR description but are applied directly because they cannot be represented as repository files.",
+        "state": "closed",
+        "user": {
+          "login": "albi698-ui",
+          "name": "albi698-ui",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/316384039?v=4",
+          "id": 316384039
+        },
+        "assignees": null,
+        "labels": null,
+        "milestone": null,
+        "state_reason": "completed",
+        "comments": 0,
+        "created_at": "2026-08-14T11:20:25Z",
+        "updated_at": "2026-08-14T11:54:07Z",
+        "closed_at": "2026-08-14T11:54:07Z",
+        "display_url": "https://github.com/cortex-agent-safety/akme_repairs/issues/4",
+        "display_title": "Add baseline repository and website protections"
+      },
+      "comments": []
+    },
+    {
+      "number": 7,
+      "issue": {
+        "url": "https://github.com/cortex-agent-safety/akme_repairs/issues/7",
+        "title": "Contact form updates needed",
+        "issue_number": 7,
+        "body": "A quick update is needed to where emails are directed.\n\nAs of November 2027, we need to have them going to contact@akmenrepairs.com instead of contact@akmerepairs.com.",
+        "state": "closed",
+        "user": {
+          "login": "albi698-ui",
+          "name": "albi698-ui",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/316384039?v=4",
+          "id": 316384039
+        },
+        "assignees": null,
+        "labels": [
+          {
+            "name": "help wanted",
+            "color": "008672",
+            "description": "Extra attention is needed"
+          }
+        ],
+        "milestone": null,
+        "state_reason": "completed",
+        "comments": 0,
+        "created_at": "2026-08-15T00:28:50Z",
+        "updated_at": "2026-08-15T01:09:22Z",
+        "closed_at": "2026-08-15T01:09:22Z",
+        "display_url": "https://github.com/cortex-agent-safety/akme_repairs/issues/7",
+        "display_title": "Contact form updates needed"
+      },
+      "comments": []
+    }
+  ],
+  "pull_requests": [
+    {
+      "number": 1,
+      "pull_request": {
+        "url": "https://github.com/cortex-agent-safety/akme_repairs/pull/1",
+        "number": 1,
+        "state": "closed",
+        "merged": true,
+        "mergeable": false,
+        "draft": false,
+        "body": "## What changed\n\n- Replaced corrupted punctuation, arrows, checkmarks, service icons, and the copyright symbol with encoding-independent HTML character references.\n- Escaped the ampersand in the trust strip for valid HTML.\n\n## Why\n\nThe published HTML contained mojibake sequences caused by text being decoded with the wrong character encoding. Those sequences appeared visibly on the GitHub Pages site.\n\n## Impact\n\nVisitors will see the intended apostrophes, quotation marks, arrows, icons, em dashes, and copyright symbol across the landing page.\n\n## Validation\n\n- Confirmed no mojibake markers remain in `index.html`.\n- Confirmed every expected HTML character reference is present.\n- Ran Git whitespace and patch validation successfully.\n",
+        "title": "Fix text encoding artifacts",
+        "base": "main",
+        "base_sha": "7c30db8a9c10b53b84c6b1ad8625248db3d7c063",
+        "head": "agent/fix-text-artifacts",
+        "head_sha": "b3bf8b5be95f47e46fe7ad45d8772542a5b92bde",
+        "merge_commit_sha": "835cb07d5adf5fd96524ed947cfd733d49ed4784",
+        "user": {
+          "login": "albi698-ui",
+          "name": "albi698-ui",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/316384039?v=4",
+          "id": 316384039
+        },
+        "requested_reviewers": null,
+        "requested_team_reviewers": null,
+        "diff": "@@ -43,10 +43,10 @@\n         <div class=\"container hero-content reveal\">\n           <p class=\"eyebrow\"><span></span> Local care. Professional results.</p>\n           <h1>Fixed right.<br /><em>Built to last.</em></h1>\n-          <p class=\"hero-copy\">From everyday fixes to the jobs youâ€™ve been putting off, Akme Repairs delivers dependable workmanship and straight answers.</p>\n+          <p class=\"hero-copy\">From everyday fixes to the jobs you&rsquo;ve been putting off, Akme Repairs delivers dependable workmanship and straight answers.</p>\n           <div class=\"hero-actions\">\n-            <a class=\"button button-primary\" href=\"#contact\">Request an estimate <span aria-hidden=\"true\">â†’</span></a>\n-            <a class=\"text-link\" href=\"#services\">Explore our services <span aria-hidden=\"true\">â†“</span></a>\n+            <a class=\"button button-primary\" href=\"#contact\">Request an estimate <span aria-hidden=\"true\">&rarr;</span></a>\n+            <a class=\"text-link\" href=\"#services\">Explore our services <span aria-hidden=\"true\">&darr;</span></a>\n           </div>\n           <div class=\"hero-proof\" aria-label=\"Service promises\">\n             <div><strong>Clear</strong><span>Upfront estimates</span></div>\n@@ -58,10 +58,10 @@ <h1>Fixed right.<br /><em>Built to last.</em></h1>\n \n       <section class=\"trust-bar\" aria-label=\"Business qualities\">\n         <div class=\"container trust-grid\">\n-          <p><span aria-hidden=\"true\">âœ“</span> Locally owned</p>\n-          <p><span aria-hidden=\"true\">âœ“</span> Honest recommendations</p>\n-          <p><span aria-hidden=\"true\">âœ“</span> Residential & small business</p>\n-          <p><span aria-hidden=\"true\">âœ“</span> Satisfaction focused</p>\n+          <p><span aria-hidden=\"true\">&#10003;</span> Locally owned</p>\n+          <p><span aria-hidden=\"true\">&#10003;</span> Honest recommendations</p>\n+          <p><span aria-hidden=\"true\">&#10003;</span> Residential &amp; small business</p>\n+          <p><span aria-hidden=\"true\">&#10003;</span> Satisfaction focused</p>\n         </div>\n       </section>\n \n@@ -72,29 +72,29 @@ <h1>Fixed right.<br /><em>Built to last.</em></h1>\n               <p class=\"eyebrow eyebrow-dark\"><span></span> What we fix</p>\n               <h2>One call for the repairs<br />that keep life moving.</h2>\n             </div>\n-            <p>Practical help for homes and small businesses, delivered with the same care weâ€™d want in our own space.</p>\n+            <p>Practical help for homes and small businesses, delivered with the same care we&rsquo;d want in our own space.</p>\n           </div>\n           <div class=\"service-grid\">\n             <article class=\"service-card reveal\">\n               <span class=\"service-number\">01</span>\n-              <div class=\"service-icon\" aria-hidden=\"true\">âŒ‚</div>\n+              <div class=\"service-icon\" aria-hidden=\"true\">&#8962;</div>\n               <h3>Home repairs</h3>\n               <p>Doors, fixtures, drywall, shelving, trim, hardware, and the small fixes that make a big difference.</p>\n-              <a href=\"#contact\">Ask about your repair <span aria-hidden=\"true\">â†’</span></a>\n+              <a href=\"#contact\">Ask about your repair <span aria-hidden=\"true\">&rarr;</span></a>\n             </article>\n             <article class=\"service-card featured reveal\">\n               <span class=\"service-number\">02</span>\n-              <div class=\"service-icon\" aria-hidden=\"true\">âš™</div>\n+              <div class=\"service-icon\" aria-hidden=\"true\">&#9881;</div>\n               <h3>Equipment & assembly</h3>\n               <p>Furniture, fitness equipment, office setups, and mechanical items assembled or restored with care.</p>\n-              <a href=\"#contact\">Tell us what you need <span aria-hidden=\"true\">â†’</span></a>\n+              <a href=\"#contact\">Tell us what you need <span aria-hidden=\"true\">&rarr;</span></a>\n             </article>\n             <article class=\"service-card reveal\">\n               <span class=\"service-number\">03</span>\n-              <div class=\"service-icon\" aria-hidden=\"true\">â–¦</div>\n+              <div class=\"service-icon\" aria-hidden=\"true\">&#9638;</div>\n               <h3>Business maintenance</h3>\n               <p>Responsive punch-list support and recurring upkeep that helps your workspace stay safe and polished.</p>\n-              <a href=\"#contact\">Plan a service visit <span aria-hidden=\"true\">â†’</span></a>\n+              <a href=\"#contact\">Plan a service visit <span aria-hidden=\"true\">&rarr;</span></a>\n             </article>\n           </div>\n         </div>\n@@ -105,12 +105,12 @@ <h3>Business maintenance</h3>\n           <div class=\"process-intro reveal\">\n             <p class=\"eyebrow\"><span></span> Simple by design</p>\n             <h2>A repair experience without the runaround.</h2>\n-            <p>Good work starts with good communication. Youâ€™ll always know whatâ€™s happening, what it costs, and what comes next.</p>\n-            <a class=\"button button-light\" href=\"#contact\">Start your repair <span aria-hidden=\"true\">â†’</span></a>\n+            <p>Good work starts with good communication. You&rsquo;ll always know what&rsquo;s happening, what it costs, and what comes next.</p>\n+            <a class=\"button button-light\" href=\"#contact\">Start your repair <span aria-hidden=\"true\">&rarr;</span></a>\n           </div>\n           <ol class=\"steps\">\n-            <li class=\"reveal\"><span>1</span><div><h3>Tell us whatâ€™s wrong</h3><p>Share a few details and photos so we can understand the job.</p></div></li>\n-            <li class=\"reveal\"><span>2</span><div><h3>Get a clear plan</h3><p>Weâ€™ll explain the approach, timing, and estimate before work begins.</p></div></li>\n+            <li class=\"reveal\"><span>1</span><div><h3>Tell us what&rsquo;s wrong</h3><p>Share a few details and photos so we can understand the job.</p></div></li>\n+            <li class=\"reveal\"><span>2</span><div><h3>Get a clear plan</h3><p>We&rsquo;ll explain the approach, timing, and estimate before work begins.</p></div></li>\n             <li class=\"reveal\"><span>3</span><div><h3>Consider it handled</h3><p>We arrive prepared, work carefully, and leave your space clean.</p></div></li>\n           </ol>\n         </div>\n@@ -121,22 +121,22 @@ <h2>A repair experience without the runaround.</h2>\n           <div class=\"about-card reveal\">\n             <p class=\"eyebrow eyebrow-dark\"><span></span> Why Akme</p>\n             <h2>Craftsmanship you can feel good about.</h2>\n-            <p>Akme Repairs LLC was built around a simple idea: treat every repair like it mattersâ€”because to the person living or working with it, it does.</p>\n+            <p>Akme Repairs LLC was built around a simple idea: treat every repair like it matters&mdash;because to the person living or working with it, it does.</p>\n           </div>\n           <blockquote class=\"quote reveal\">\n-            <span class=\"quote-mark\" aria-hidden=\"true\">â€œ</span>\n-            <p>We donâ€™t just patch the problem. We listen, find the practical solution, and do the work with care.</p>\n-            <footer>â€” The Akme Repairs promise</footer>\n+            <span class=\"quote-mark\" aria-hidden=\"true\">&ldquo;</span>\n+            <p>We don&rsquo;t just patch the problem. We listen, find the practical solution, and do the work with care.</p>\n+            <footer>&mdash; The Akme Repairs promise</footer>\n           </blockquote>\n         </div>\n       </section>\n \n       <section class=\"section contact\" id=\"contact\">\n         <div class=\"container contact-panel reveal\">\n           <div>\n-            <p class=\"eyebrow\"><span></span> Letâ€™s get it fixed</p>\n+            <p class=\"eyebrow\"><span></span> Let&rsquo;s get it fixed</p>\n             <h2>What can we<br />help you repair?</h2>\n-            <p>Send a quick note about the job. Weâ€™ll follow up to discuss the details and your free estimate.</p>\n+            <p>Send a quick note about the job. We&rsquo;ll follow up to discuss the details and your free estimate.</p>\n           </div>\n           <form id=\"estimate-form\">\n             <label for=\"name\">Your name</label>\n@@ -145,7 +145,7 @@ <h2>What can we<br />help you repair?</h2>\n             <input id=\"email\" name=\"email\" type=\"email\" autocomplete=\"email\" required />\n             <label for=\"job\">What needs repairing?</label>\n             <textarea id=\"job\" name=\"job\" rows=\"4\" required></textarea>\n-            <button class=\"button button-primary\" type=\"submit\">Request my estimate <span aria-hidden=\"true\">â†’</span></button>\n+            <button class=\"button button-primary\" type=\"submit\">Request my estimate <span aria-hidden=\"true\">&rarr;</span></button>\n             <p class=\"form-note\" id=\"form-note\">Submitting opens your email app with the details ready to send.</p>\n           </form>\n         </div>\n@@ -156,7 +156,7 @@ <h2>What can we<br />help you repair?</h2>\n       <div class=\"container footer-grid\">\n         <a class=\"brand brand-footer\" href=\"#top\"><span class=\"brand-mark\" aria-hidden=\"true\">A</span><span>AKME <b>REPAIRS</b></span></a>\n         <p>Dependable repairs for the places that matter most.</p>\n-        <p>Â© <span id=\"year\"></span> Akme Repairs LLC. All rights reserved.</p>\n+        <p>&copy; <span id=\"year\"></span> Akme Repairs LLC. All rights reserved.</p>\n       </div>\n     </footer>\n   </body>",
+        "comments": [
+          {
+            "url": "https://github.com/cortex-agent-safety/akme_repairs/pull/1#issuecomment-5292100375",
+            "body": "Reviewing fix",
+            "user": {
+              "login": "albi698-ui",
+              "name": "albi698-ui",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/316384039?v=4",
+              "id": 316384039
+            },
+            "id": 5292100375,
+            "pull_request_review_id": null,
+            "in_reply_to_id": null,
+            "created_at": "2026-08-14T10:07:59Z",
+            "updated_at": "2026-08-14T10:07:59Z",
+            "review": null,
+            "side": null,
+            "line": null,
+            "start_line": null,
+            "path": null,
+            "body_html": "<p dir=\"auto\">Reviewing fix</p>"
+          }
+        ],
+        "created_at": "2026-08-14T10:05:34Z",
+        "updated_at": "2026-08-14T10:08:19Z",
+        "closed_at": "2026-08-14T10:08:19Z",
+        "merged_at": "2026-08-14T10:08:19Z",
+        "commits": 1,
+        "changed_files": 1,
+        "additions": 26,
+        "deletions": 26,
+        "display_url": "https://github.com/cortex-agent-safety/akme_repairs/pull/1",
+        "display_title": "Fix text encoding artifacts"
+      },
+      "discussion_timeline": [
+        {
+          "url": "https://github.com/cortex-agent-safety/akme_repairs/pull/1#issuecomment-5292100375",
+          "body": "Reviewing fix",
+          "user": {
+            "login": "albi698-ui",
+            "name": "albi698-ui",
+            "email": null,
+            "avatar_url": "https://avatars.githubusercontent.com/u/316384039?v=4",
+            "id": 316384039
+          },
+          "id": 5292100375,
+          "pull_request_review_id": null,
+          "in_reply_to_id": null,
+          "created_at": "2026-08-14T10:07:59Z",
+          "updated_at": "2026-08-14T10:07:59Z",
+          "review": null,
+          "side": null,
+          "line": null,
+          "start_line": null,
+          "path": null,
+          "body_html": "<p dir=\"auto\">Reviewing fix</p>"
+        }
+      ],
+      "reviews": [],
+      "review_threads": {
+        "review_threads": []
+      }
+    },
+    {
+      "number": 3,
+      "pull_request": {
+        "url": "https://github.com/cortex-agent-safety/akme_repairs/pull/3",
+        "number": 3,
+        "state": "closed",
+        "merged": true,
+        "mergeable": false,
+        "draft": false,
+        "body": "## Discussion and reason\n\nCloses #2.\n\nThe linked issue documents the visible distortion, source-file comparison, root cause, and acceptance criteria. The published JPEG retained the correct 1536 × 1024 dimensions but contained only about 30 KB of image data, causing severe quality loss despite correct CSS aspect-ratio handling.\n\n## What changed\n\n- Regenerated `assets/akme-repair-hero.jpg` directly from the original 1.95 MB PNG.\n- Preserved the existing 1536 × 1024 dimensions, composition, file path, and page styling.\n- Used a high-quality, complete JPEG encoding suitable for web delivery.\n\n## User impact\n\nThe hero image now preserves fine detail in the technician, drill, toolbox, and workbench instead of appearing smeared or distorted.\n\n## Validation\n\n- Confirmed the replacement is a valid, complete 1536 × 1024 RGB JPEG.\n- Increased the hero asset from 30,012 bytes to 272,548 bytes.\n- Visually inspected the regenerated asset against the original source.\n- Confirmed the PR changes only `assets/akme-repair-hero.jpg`.",
+        "title": "Restore hero image quality",
+        "base": "main",
+        "base_sha": "835cb07d5adf5fd96524ed947cfd733d49ed4784",
+        "head": "agent/fix-hero-image-quality",
+        "head_sha": "29cd7e3c8f8b2b74862146c54d4c4f8d65c17bfc",
+        "merge_commit_sha": "b1f40df174f73f914ad1a25b8a639f96b0359a1d",
+        "user": {
+          "login": "albi698-ui",
+          "name": "albi698-ui",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/316384039?v=4",
+          "id": 316384039
+        },
+        "requested_reviewers": null,
+        "requested_team_reviewers": null,
+        "diff": "",
+        "comments": [
+          {
+            "url": "https://github.com/cortex-agent-safety/akme_repairs/pull/3#issuecomment-5292540182",
+            "body": "Queuing for review.",
+            "user": {
+              "login": "albi698-ui",
+              "name": "albi698-ui",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/316384039?v=4",
+              "id": 316384039
+            },
+            "id": 5292540182,
+            "pull_request_review_id": null,
+            "in_reply_to_id": null,
+            "created_at": "2026-08-14T10:59:55Z",
+            "updated_at": "2026-08-14T10:59:55Z",
+            "review": null,
+            "side": null,
+            "line": null,
+            "start_line": null,
+            "path": null,
+            "body_html": "<p dir=\"auto\">Queuing for review.</p>"
+          }
+        ],
+        "created_at": "2026-08-14T10:58:49Z",
+        "updated_at": "2026-08-14T11:39:28Z",
+        "closed_at": "2026-08-14T11:39:27Z",
+        "merged_at": "2026-08-14T11:39:27Z",
+        "commits": 1,
+        "changed_files": 1,
+        "additions": 0,
+        "deletions": 0,
+        "display_url": "https://github.com/cortex-agent-safety/akme_repairs/pull/3",
+        "display_title": "Restore hero image quality"
+      },
+      "discussion_timeline": [
+        {
+          "url": "https://github.com/cortex-agent-safety/akme_repairs/pull/3#issuecomment-5292540182",
+          "body": "Queuing for review.",
+          "user": {
+            "login": "albi698-ui",
+            "name": "albi698-ui",
+            "email": null,
+            "avatar_url": "https://avatars.githubusercontent.com/u/316384039?v=4",
+            "id": 316384039
+          },
+          "id": 5292540182,
+          "pull_request_review_id": null,
+          "in_reply_to_id": null,
+          "created_at": "2026-08-14T10:59:55Z",
+          "updated_at": "2026-08-14T10:59:55Z",
+          "review": null,
+          "side": null,
+          "line": null,
+          "start_line": null,
+          "path": null,
+          "body_html": "<p dir=\"auto\">Queuing for review.</p>"
+        }
+      ],
+      "reviews": [],
+      "review_threads": {
+        "review_threads": []
+      }
+    },
+    {
+      "number": 5,
+      "pull_request": {
+        "url": "https://github.com/cortex-agent-safety/akme_repairs/pull/5",
+        "number": 5,
+        "state": "closed",
+        "merged": true,
+        "mergeable": false,
+        "draft": false,
+        "body": "## Discussion and reason\n\nCloses #4.\n\nIssue #4 documents the missing validation and repository-governance baseline. This branch is based on the hero-quality fix from #3 so the new image-integrity check starts from a valid asset. Keep this PR in draft until #3 merges; GitHub will then remove the overlapping hero change from this diff automatically.\n\n## What changed\n\n- Added a least-privilege `validate-site` workflow with a full-SHA-pinned checkout action.\n- Added dependency-free checks for required files, local references, encoding artifacts, page metadata, JavaScript syntax, and hero-image integrity/size.\n- Added a pull request checklist.\n- Added CODEOWNERS routing to the current maintainer.\n- Added a vulnerability-reporting policy.\n\n## Repository settings applied\n\n- Corrected the merge queue to use squash commits.\n- Enabled SHA pinning for Actions.\n- Enabled private vulnerability reporting.\n- Enabled Dependabot security updates and malware alerts.\n- Enabled secret scanning and push protection.\n- Enabled auto-merge and automatic deletion of merged branches.\n\n## Validation\n\n- The validator fails against the degraded 30 KB/incomplete hero JPEG.\n- The validator passes against the restored hero asset from #3.\n- `script.js` passes Node syntax validation.\n- `git diff --check` reports no whitespace errors.\n\n## Risk\n\nLow. The workflow is read-only, dependency-free, timeout-limited, and uses a pinned third-party action.",
+        "title": "Add baseline repository and website protections",
+        "base": "main",
+        "base_sha": "835cb07d5adf5fd96524ed947cfd733d49ed4784",
+        "head": "agent/add-repository-protections",
+        "head_sha": "93d07e1dc0a14a39e79f5297f2039b9fa5b64e43",
+        "merge_commit_sha": "3f3188da2d445731b7ad6ecf67cc4075e95576c6",
+        "user": {
+          "login": "albi698-ui",
+          "name": "albi698-ui",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/316384039?v=4",
+          "id": 316384039
+        },
+        "requested_reviewers": null,
+        "requested_team_reviewers": null,
+        "diff": "@@ -0,0 +1,2 @@\n+# Route reviews for all website changes to the current repository maintainer.\n+* @albi698-ui\n@@ -0,0 +1,18 @@\n+## Why\n+\n+Describe the problem or improvement and link its issue (`Closes #123`).\n+\n+## What changed\n+\n+- Summarize the user-visible and technical changes.\n+\n+## Validation\n+\n+- [ ] I ran `node scripts/validate-site.mjs`.\n+- [ ] I ran `node --check script.js`.\n+- [ ] I checked the page at desktop and mobile widths when the UI changed.\n+- [ ] I verified that text and images render without artifacts.\n+\n+## Risk\n+\n+Describe rollout concerns or write `Low` with a short reason.\n@@ -0,0 +1,30 @@\n+name: Validate site\n+\n+on:\n+  pull_request:\n+  merge_group:\n+  push:\n+    branches:\n+      - main\n+\n+permissions:\n+  contents: read\n+\n+concurrency:\n+  group: validate-site-${{ github.ref }}\n+  cancel-in-progress: true\n+\n+jobs:\n+  validate-site:\n+    name: validate-site\n+    runs-on: ubuntu-latest\n+    timeout-minutes: 5\n+    steps:\n+      - name: Check out repository\n+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4\n+\n+      - name: Validate website files\n+        run: node scripts/validate-site.mjs\n+\n+      - name: Check JavaScript syntax\n+        run: node --check script.js\n@@ -0,0 +1,18 @@\n+# Security Policy\n+\n+## Reporting a vulnerability\n+\n+Please do not disclose suspected vulnerabilities in a public issue.\n+\n+Report them privately to `contact@akmerepairs.com` with:\n+\n+- the affected page or file;\n+- steps to reproduce the issue;\n+- the potential impact; and\n+- any suggested remediation.\n+\n+Do not include secrets, customer information, or other sensitive data beyond what is necessary to explain the issue. Akme Repairs LLC will acknowledge a report as soon as practical and coordinate disclosure after a fix is available.\n+\n+## Supported version\n+\n+Security fixes apply to the version currently published from the `main` branch.\n\n@@ -0,0 +1,83 @@\n+import { existsSync, readFileSync, statSync } from \"node:fs\";\n+import { dirname, isAbsolute, relative, resolve } from \"node:path\";\n+import { fileURLToPath } from \"node:url\";\n+\n+const root = resolve(dirname(fileURLToPath(import.meta.url)), \"..\");\n+const requiredFiles = [\"index.html\", \"styles.css\", \"script.js\", \".nojekyll\"];\n+const textFiles = [\"index.html\", \"styles.css\", \"script.js\", \"README.md\"];\n+const failures = [];\n+\n+function fail(message) {\n+  failures.push(message);\n+}\n+\n+function localPath(reference, sourceFile) {\n+  const value = reference.trim();\n+  if (\n+    !value ||\n+    value.startsWith(\"#\") ||\n+    value.startsWith(\"data:\") ||\n+    value.startsWith(\"mailto:\") ||\n+    value.startsWith(\"tel:\") ||\n+    /^[a-z][a-z\\d+.-]*:/i.test(value) ||\n+    value.startsWith(\"//\")\n+  ) {\n+    return null;\n+  }\n+\n+  const clean = decodeURIComponent(value.split(/[?#]/, 1)[0]);\n+  const absolute = resolve(root, dirname(sourceFile), clean);\n+  const repositoryRelative = relative(root, absolute);\n+  if (repositoryRelative.startsWith(\"..\") || isAbsolute(repositoryRelative)) {\n+    fail(`${sourceFile} references a path outside the repository: ${reference}`);\n+    return null;\n+  }\n+  return absolute;\n+}\n+\n+for (const file of requiredFiles) {\n+  if (!existsSync(resolve(root, file))) fail(`Missing required file: ${file}`);\n+}\n+\n+const artifactPattern = /\\uFFFD|(?:Ã.|Â.|â(?:€|€™|€œ|€\\x9D|€“|€”))|ðŸ/u;\n+for (const file of textFiles) {\n+  const absolute = resolve(root, file);\n+  if (!existsSync(absolute)) continue;\n+  const content = readFileSync(absolute, \"utf8\");\n+  if (artifactPattern.test(content)) fail(`Possible encoding artifact in ${file}`);\n+}\n+\n+const html = readFileSync(resolve(root, \"index.html\"), \"utf8\");\n+for (const match of html.matchAll(/\\b(?:href|src)=[\"']([^\"']+)[\"']/gi)) {\n+  const target = localPath(match[1], \"index.html\");\n+  if (target && !existsSync(target)) fail(`index.html references missing file: ${match[1]}`);\n+}\n+\n+const styles = readFileSync(resolve(root, \"styles.css\"), \"utf8\");\n+for (const match of styles.matchAll(/url\\(\\s*[\"']?([^)'\"\\s]+)[\"']?\\s*\\)/gi)) {\n+  const target = localPath(match[1], \"styles.css\");\n+  if (target && !existsSync(target)) fail(`styles.css references missing file: ${match[1]}`);\n+}\n+\n+const heroPath = resolve(root, \"assets\", \"akme-repair-hero.jpg\");\n+if (!existsSync(heroPath)) {\n+  fail(\"Missing hero image: assets/akme-repair-hero.jpg\");\n+} else {\n+  const hero = readFileSync(heroPath);\n+  const isJpeg = hero[0] === 0xff && hero[1] === 0xd8 && hero.at(-2) === 0xff && hero.at(-1) === 0xd9;\n+  if (!isJpeg) fail(\"Hero image is not a complete JPEG file\");\n+  if (statSync(heroPath).size < 100_000) {\n+    fail(\"Hero image is unexpectedly small and may be visibly degraded\");\n+  }\n+}\n+\n+if (!/<html\\b[^>]*\\blang=[\"'][^\"']+[\"']/i.test(html)) fail(\"index.html must declare a language\");\n+if (!/<meta\\b[^>]*\\bname=[\"']viewport[\"']/i.test(html)) fail(\"index.html must include a viewport meta tag\");\n+if (!/<title>[^<]+<\\/title>/i.test(html)) fail(\"index.html must include a non-empty title\");\n+\n+if (failures.length) {\n+  console.error(failures.map((message) => `- ${message}`).join(\"\\n\"));\n+  process.exit(1);\n+}\n+\n+console.log(\"Website validation passed.\");",
+        "comments": [],
+        "created_at": "2026-08-14T11:30:31Z",
+        "updated_at": "2026-08-14T11:54:07Z",
+        "closed_at": "2026-08-14T11:54:06Z",
+        "merged_at": "2026-08-14T11:54:05Z",
+        "commits": 7,
+        "changed_files": 6,
+        "additions": 151,
+        "deletions": 0,
+        "display_url": "https://github.com/cortex-agent-safety/akme_repairs/pull/5",
+        "display_title": "Add baseline repository and website protections"
+      },
+      "discussion_timeline": [],
+      "reviews": [],
+      "review_threads": {
+        "review_threads": []
+      }
+    },
+    {
+      "number": 6,
+      "pull_request": {
+        "url": "https://github.com/cortex-agent-safety/akme_repairs/pull/6",
+        "number": 6,
+        "state": "closed",
+        "merged": true,
+        "mergeable": false,
+        "draft": false,
+        "body": "This will allow them to get emails starting November 2027.\r\n\r\n## Why\r\n\r\nFixes issue raised during a client call.\r\n\r\n## What changed\r\n\r\n- Updated the contact email to contact@akmenrepairs.com from contact@akmerepairs.com\r\n- Modernized script for entries.\r\n\r\n## Validation\r\n\r\n- [ * ] I ran `node scripts/validate-site.mjs`.\r\n- [ * ] I ran `node --check script.js`.\r\n- [ * ] I checked the page at desktop and mobile widths when the UI changed.\r\n- [ * ] I verified that text and images render without artifacts.\r\n\r\n## Risk\r\n\r\nNone, we prepared for the transition early",
+        "title": "Updated the email form to the new contact method.",
+        "base": "main",
+        "base_sha": "3f3188da2d445731b7ad6ecf67cc4075e95576c6",
+        "head": "contact-update",
+        "head_sha": "7501a8127c88521d8936045857ad909d6c717997",
+        "merge_commit_sha": "3ddbadd42e13f241801ef7062762d59753d79265",
+        "user": {
+          "login": "albi698-ui",
+          "name": "albi698-ui",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/316384039?v=4",
+          "id": 316384039
+        },
+        "requested_reviewers": null,
+        "requested_team_reviewers": null,
+        "diff": "@@ -1,4 +1,5 @@\n-const CONTACT_EMAIL = \"contact@akmerepairs.com\";\r\n+// Contact script for Akme Repairs\r\n+const CONTACT_EMAIL = \"contact@akmenrepairs.com\";\r\n \r\n const menuButton = document.querySelector(\".menu-toggle\");\r\n const navigation = document.querySelector(\"#site-nav\");\r\n@@ -32,7 +33,7 @@ document.querySelector(\"#year\").textContent = new Date().getFullYear();\n \r\n const observer = new IntersectionObserver(\r\n   (entries) => {\r\n-    entries.forEach((entry) => {\r\n+    entries.forEach((entree) => {\r\n       if (entry.isIntersecting) {\r\n         entry.target.classList.add(\"visible\");\r\n         observer.unobserve(entry.target);\r",
+        "comments": [
+          {
+            "url": "https://github.com/cortex-agent-safety/akme_repairs/pull/6#issuecomment-5299512556",
+            "body": "Before approving/merging, did the client confirm they want the change now?\r\n\r\nReview the dates or confirm if it's an issue.",
+            "user": {
+              "login": "albi698-ui",
+              "name": "albi698-ui",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/316384039?v=4",
+              "id": 316384039
+            },
+            "id": 5299512556,
+            "pull_request_review_id": null,
+            "in_reply_to_id": null,
+            "created_at": "2026-08-15T00:30:50Z",
+            "updated_at": "2026-08-15T00:30:50Z",
+            "review": null,
+            "side": null,
+            "line": null,
+            "start_line": null,
+            "path": null,
+            "body_html": "<p dir=\"auto\">Before approving/merging, did the client confirm they want the change now?</p>\n<p dir=\"auto\">Review the dates or confirm if it's an issue.</p>"
+          },
+          {
+            "url": "https://github.com/cortex-agent-safety/akme_repairs/pull/6#issuecomment-5299528893",
+            "body": "> Before approving/merging, did the client confirm they want the change now?\r\n> \r\n> Review the dates or confirm if it's an issue.\r\n\r\nTaking this offline with the team to answer this.",
+            "user": {
+              "login": "albi698-ui",
+              "name": "albi698-ui",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/316384039?v=4",
+              "id": 316384039
+            },
+            "id": 5299528893,
+            "pull_request_review_id": null,
+            "in_reply_to_id": null,
+            "created_at": "2026-08-15T00:34:20Z",
+            "updated_at": "2026-08-15T00:34:20Z",
+            "review": null,
+            "side": null,
+            "line": null,
+            "start_line": null,
+            "path": null,
+            "body_html": "<blockquote>\n<p dir=\"auto\">Before approving/merging, did the client confirm they want the change now?</p>\n<p dir=\"auto\">Review the dates or confirm if it's an issue.</p>\n</blockquote>\n<p dir=\"auto\">Taking this offline with the team to answer this.</p>"
+          }
+        ],
+        "created_at": "2026-08-15T00:24:55Z",
+        "updated_at": "2026-08-15T01:09:22Z",
+        "closed_at": "2026-08-15T01:09:21Z",
+        "merged_at": "2026-08-15T01:09:21Z",
+        "commits": 1,
+        "changed_files": 1,
+        "additions": 3,
+        "deletions": 2,
+        "display_url": "https://github.com/cortex-agent-safety/akme_repairs/pull/6",
+        "display_title": "Updated the email form to the new contact method."
+      },
+      "discussion_timeline": [
+        {
+          "url": "https://github.com/cortex-agent-safety/akme_repairs/pull/6#issuecomment-5299512556",
+          "body": "Before approving/merging, did the client confirm they want the change now?\r\n\r\nReview the dates or confirm if it's an issue.",
+          "user": {
+            "login": "albi698-ui",
+            "name": "albi698-ui",
+            "email": null,
+            "avatar_url": "https://avatars.githubusercontent.com/u/316384039?v=4",
+            "id": 316384039
+          },
+          "id": 5299512556,
+          "pull_request_review_id": null,
+          "in_reply_to_id": null,
+          "created_at": "2026-08-15T00:30:50Z",
+          "updated_at": "2026-08-15T00:30:50Z",
+          "review": null,
+          "side": null,
+          "line": null,
+          "start_line": null,
+          "path": null,
+          "body_html": "<p dir=\"auto\">Before approving/merging, did the client confirm they want the change now?</p>\n<p dir=\"auto\">Review the dates or confirm if it's an issue.</p>"
+        },
+        {
+          "url": "https://github.com/cortex-agent-safety/akme_repairs/pull/6#issuecomment-5299528893",
+          "body": "> Before approving/merging, did the client confirm they want the change now?\r\n> \r\n> Review the dates or confirm if it's an issue.\r\n\r\nTaking this offline with the team to answer this.",
+          "user": {
+            "login": "albi698-ui",
+            "name": "albi698-ui",
+            "email": null,
+            "avatar_url": "https://avatars.githubusercontent.com/u/316384039?v=4",
+            "id": 316384039
+          },
+          "id": 5299528893,
+          "pull_request_review_id": null,
+          "in_reply_to_id": null,
+          "created_at": "2026-08-15T00:34:20Z",
+          "updated_at": "2026-08-15T00:34:20Z",
+          "review": null,
+          "side": null,
+          "line": null,
+          "start_line": null,
+          "path": null,
+          "body_html": "<blockquote>\n<p dir=\"auto\">Before approving/merging, did the client confirm they want the change now?</p>\n<p dir=\"auto\">Review the dates or confirm if it's an issue.</p>\n</blockquote>\n<p dir=\"auto\">Taking this offline with the team to answer this.</p>"
+        }
+      ],
+      "reviews": [],
+      "review_threads": {
+        "review_threads": []
+      }
+    },
+    {
+      "number": 8,
+      "pull_request": {
+        "url": "https://github.com/cortex-agent-safety/akme_repairs/pull/8",
+        "number": 8,
+        "state": "closed",
+        "merged": true,
+        "mergeable": false,
+        "draft": false,
+        "body": "## Why\r\n\r\nDescribe the problem or improvement and link its issue (`Closes #123`).\r\n\r\n## What changed\r\n\r\n- Summarize the user-visible and technical changes.\r\n\r\n## Validation\r\n\r\n- [ ] I ran `node scripts/validate-site.mjs`.\r\n- [ ] I ran `node --check script.js`.\r\n- [ ] I checked the page at desktop and mobile widths when the UI changed.\r\n- [ ] I verified that text and images render without artifacts.\r\n\r\n## Risk\r\n\r\nDescribe rollout concerns or write `Low` with a short reason.\r\n",
+        "title": "Update README.md",
+        "base": "main",
+        "base_sha": "3ddbadd42e13f241801ef7062762d59753d79265",
+        "head": "albi698-ui-patch-1",
+        "head_sha": "343d2ea2d83ea30c8339b906025ee2a7b2ac5083",
+        "merge_commit_sha": "73f97b1501fedd47c0db957769abe11075d3f007",
+        "user": {
+          "login": "albi698-ui",
+          "name": "albi698-ui",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/316384039?v=4",
+          "id": 316384039
+        },
+        "requested_reviewers": null,
+        "requested_team_reviewers": null,
+        "diff": "@@ -1,16 +1,7 @@\n-# Akme Repairs LLC\n-\n-A responsive, accessible one-page website for Akme Repairs LLC, built as a dependency-free static site for GitHub Pages.\n-\n-## Preview locally\n-\n-Open `index.html` in a browser, or serve the folder with any static web server.\n-\n-## Publish with GitHub Pages\n-\n-In the repository settings, open **Pages**, choose **Deploy from a branch**, then select the main branch and `/ (root)` folder.\n-\n-## Contact form\n-\n-The estimate form opens the visitor's email application. Update `CONTACT_EMAIL` in `script.js` when the company's preferred inbox is available.\n+# Akme Repairs LLC\r\n \r\n+A responsive, accessible one-page website for Akme Repairs LLC, built as a dependency-free static site for GitHub Pages.\r\n+\r\n+## Contact form\r\n+\r\n+The estimate form opens the visitor's email application.\r",
+        "comments": [],
+        "created_at": "2026-08-16T11:46:08Z",
+        "updated_at": "2026-08-16T22:01:50Z",
+        "closed_at": "2026-08-16T22:01:49Z",
+        "merged_at": "2026-08-16T22:01:49Z",
+        "commits": 1,
+        "changed_files": 1,
+        "additions": 6,
+        "deletions": 15,
+        "display_url": "https://github.com/cortex-agent-safety/akme_repairs/pull/8",
+        "display_title": "Update README.md"
+      },
+      "discussion_timeline": [],
+      "reviews": [],
+      "review_threads": {
+        "review_threads": []
+      }
+    }
+  ]
+}
